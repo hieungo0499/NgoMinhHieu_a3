@@ -1,0 +1,109 @@
+.container{
+    width: 80%;
+    height: auto;
+    margin: auto;
+    margin-top: 10px;
+}
+.header{
+    background-color: #ddd;
+    display: flex;
+    justify-content: space-between;
+}
+#setting-form{
+    background-color: #04AA6D;
+    width: fit-content;
+    padding: 10px;
+    position: relative;
+    position: absolute;
+    margin-top: 100px;
+}
+#setting-form input{
+    height: 25px;
+}
+
+#cancelBtn{
+    margin-left: 155px;
+}
+select{
+    background-color: #ddd;
+    height: 30px;
+    width: 177px;
+}
+#save{
+    margin-top: 10px;
+    margin-left: 50px;
+    padding: 5px;
+    width: 80px;
+}
+.header button{
+    margin: 10px;
+    padding: 5px;
+}
+#files {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #files td, #files th {
+    border: 1px solid black;
+    padding: 8px;
+  }
+  
+  #files tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #files tr:hover {background-color: #ddd;}
+  
+  #files th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+    
+  }
+  td i {
+     
+      padding: 10px;
+      margin: 10px;
+  }
+  i:hover{
+     background-color: #04AA6D;
+  }
+  .state label {
+	font-size: 18px
+}
+.pagination {
+  margin-top : 10px;	
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.pagination a.active {
+  background-color: #04AA6D; 
+  color: white;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
+  #logo{
+      width: 200px;
+      height: 200px;
+      margin: auto;
+     
+  }
+  #page_index{
+   display: block ;
+  	color: #04AA6D;
+	margin-top :10px;
+  	font-size: 20px;
+  	font-style: italic;
+  	font-weight: bold;
+  	
+  }

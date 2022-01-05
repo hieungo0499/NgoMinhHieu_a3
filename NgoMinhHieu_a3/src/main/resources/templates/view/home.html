@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/font/fontawesome-free-5.15.3-web/css/all.css}">
+</head>
+<body>
+	 <a th:href="@{/home}"><div id="logo" th:style="'background-image:url('+@{/image/logo2.png}+');'"></div> </a> 
+    <div class="container">
+        <div class="state">
+             <label for="" th:if="${message != null}" th:text="${message}"  style="color: blue;"></label>
+            <label for="" th:if="${error != null}" th:text="${error}" style="color: red;"></label> 
+        </div>
+        <div id="setting-form" style="display: none;">
+            <button id="cancelBtn">x</button>
+            <form th:action="@{/updateSetting}" method="post" >
+                <input name="id" th:value="${setting.id}" type="hidden">
+                <label for="">Max File Size(MB)</label><br>
+                <input name = "maxFileSize" type="number" min = "1" th:value="${setting.maxFileSize}"><br>
+                <label  for="">Item Per Page</label><br>
+                <input name = "itemPerPage" type="number" min="1"  th:value="${setting.itemPerPage}" ><br>
+                <label for="">Allowed upload type</label><br>
+                <select name="mimeTypeAllowed" id="type">
+                    <option th:each="item :${allowedType}" th:value="${item}" th:text="${item}" th:selected="${setting.mimeTypeAllowed} == ${item}"></option>
+                    
+                  </select><br>
+                <button id="save">Save</button>
+            </form>
+           
+        </div>
+        <div class="header">
+            <button id="settingBtn">Setting</button>
+            <form th:action="@{/upload}" method="post"enctype="multipart/form-data">
+                <input name="file" type="file">
+                <button>Upload</button>
+            </form>
+        </div>
+        <table id="files">
+            <tr>
+              <th>Index</th>
+              <th>File Name</th>
+              <th>Version</th>
+              <th>File Size(MB)</th>
+              <th>Created Time (MM/DD/YY)</th>
+              <th>Download</th>
+              <th>Action</th>
+            </tr>
+            <tr th:each ="file, item :${files}">
+                <td th:text ="${item.index+1}"></td>
+                <td th:text="${file.name}"></td>
+               <td th:text="${file.version}"></td>
+               <td th:text="${file.fileSize}"></td>
+                <td th:text="${{file.createdDateTime}}"></td>
+                
+                <td th:text="${file.numberOfDownload}"></td>
+                <td>
+                    <a th:href="@{'/download?id='+${file.id}}"><i class="fas fa-download" ></i></a>
+                   <a  th:href="@{'/deleteFile?id='+${file.id}}" onclick="return confirm('Are you sure to delete this file?')" > <i class="fas fa-trash-alt"></i></a>
+                </td>
+            </tr>
+            
+          </table>
+          <label id="page_index" th:if="${total} >0" th:text="'Page '+${currentPage}+'/'+${total}"></label>
+           <div class="pagination" th:if="${total} > 1">
+								  <a th:if="${currentPage} > 1"  th:href="@{/file-list/1}">First</a>
+								  <a th:if="${currentPage} >1" th:href="@{'/file-list/'+ ${currentPage-1}}" >&laquo;</a>
+								  <a th:if="${currentPage} >1" th:href="@{'/file-list/'+ ${currentPage-1}}" th:text="${currentPage-1}"></a>
+								  <a class="active" th:href="@{'/file_list/'+ ${currentPage}}" th:text="${currentPage}"></a>
+								  <a th:if="${currentPage} < ${total}"  th:href="@{'/file-list/'+${currentPage+1}}" th:text="${currentPage+1}"></a>
+								  <a th:if="${currentPage} < ${total}"  th:href="@{'/file-list/'+${currentPage+1}}">&raquo;</a>
+								  <a th:if="${currentPage} < ${total}"  th:href="@{'/file-list/'+${total}}">Last</a>
+								</div> 
+    </div>
+    <script>
+       var settingForm = document.getElementById("setting-form")
+       var settingBtn = document.getElementById("settingBtn")
+       var cancelSetting = document.getElementById("cancelBtn")
+       cancelSetting.addEventListener("click",hideSettingForm)
+       settingBtn.addEventListener("click",showSettingForm)
+       function showSettingForm(){
+           settingForm.style.display = "block";
+       }
+       function hideSettingForm(){
+           settingForm.style.display = "none"
+       }
+       /* var deleteLink = document.getElementById("delete")
+       deleteLink.addEventListener("click", deleteFile);
+       function deleteFile() {
+          
+           if (confirm("Delete this file ?") == true) {
+                deleteLink.href = "https://google.com";
+           } else {
+              
+           }
+       } */
+    </script>
+</body>
+</html>
